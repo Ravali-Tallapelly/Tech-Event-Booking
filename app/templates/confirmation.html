@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Booking Confirmed</h1>
+    <p>Thank you for booking a ticket for {{ event_name }}!</p>
+    <a href="{{ url_for('main_routes.index') }}" class="button">Back to Events</a>
+</body>
+</html>

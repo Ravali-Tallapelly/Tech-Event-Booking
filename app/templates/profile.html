@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    .profile-info {
+      margin-bottom: 30px;
+    }
+
+    .profile-info p {
+      margin-bottom: 10px;
+    }
+
+    .profile-info strong {
+      color: #555;
+    }
+
+    /* Style for the navigation links */
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Profile Information -->
+  <div class="container">
+    <h1>User Profile</h1>
+    <div class="profile-info">
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Joined:</strong> 
+        {% if user.created_at %}
+          {{ user.created_at.strftime('%Y-%m-%d') }}
+        {% else %}
+          N/A
+        {% endif %}
+      </p>
+      
+      <!-- Add other profile details here -->
+    </div>
+  </div>
+
+</body>
+</html>

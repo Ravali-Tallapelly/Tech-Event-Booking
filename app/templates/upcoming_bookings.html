@@ -1,0 +1,14 @@
+<h1>Upcoming Bookings</h1>
+<ul>
+    {% for booking in bookings %}
+    <li>
+        <h3>{{ booking.event.name }}</h3>
+        <p>Date: {{ booking.event.date }}</p>
+        <p>Location: {{ booking.event.location }}</p>
+        <p>Status: {{ booking.status }}</p>
+        
+        <a href="{{ url_for('routes.cancel_booking', booking_id=booking.id) }}">Cancel Booking</a> |
+        <a href="{{ url_for('routes.reschedule_booking', booking_id=booking.id) }}">Reschedule</a>
+    </li>
+    {% endfor %}
+</ul>

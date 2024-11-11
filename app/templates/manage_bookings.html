@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Bookings</title>
+  <style>
+    /* Add similar styling as before */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      padding: 20px;
+    }
+
+    .booking-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .booking-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .booking-card h4 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .booking-card p {
+      margin-bottom: 5px;
+    }
+
+    .status-confirmed {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-not-confirmed {
+      color: red;
+      font-weight: bold;
+    }
+
+    .unregister-btn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .unregister-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="booking-container">
+    <h2>Manage My Booked Events</h2>
+    {% if bookings %}
+      {% for booking in bookings %}
+        <div class="booking-card">
+          <h4>{{ booking.event.name }}</h4>
+          <p><strong>Date:</strong> {{ booking.event.date }}</p>
+          <p><strong>Location:</strong> {{ booking.event.location }}</p>
+          <p><strong>Status:</strong> 
+            {% if booking.status == 'Confirmed' %}
+              <span class="status-confirmed">Confirmed</span>
+            {% else %}
+              <span class="status-not-confirmed">Not Confirmed</span>
+            {% endif %}
+          </p>
+          
+          <form method="POST" action="{{ url_for('main_routes.manage_bookings') }}">
+            <input type="hidden" name="booking_id" value="{{ booking.id }}">
+            <button type="submit" class="unregister-btn">Unregister</button>
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>You have no booked events.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

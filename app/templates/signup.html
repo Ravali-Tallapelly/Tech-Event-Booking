@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Tech Event Booking</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .form-container h2 {
+      color: #007acc;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    .signup-button {
+      background-color: #007acc;
+      color: white;
+      padding: 0.8rem;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .signup-button:hover {
+      background-color: #005f99;
+    }
+
+    .signin-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .signin-link a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    .signin-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Create an Account</h2>
+    <form action="/signup" method="POST">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="account_type">Account Type:</label>
+    <select name="account_type" id="account_type">
+        <option value="basic">Basic</option>
+        <option value="premium">Premium</option>
+    </select><br>
+        </div>
+      <button type="submit" class="signup-button">Sign Up</button>
+    </form>
+    <p class="signin-link">Already have an account? <a href="{{ url_for('main_routes.signin') }}">Sign In</a></p>
+
+  </div>
+
+</body>
+</html>

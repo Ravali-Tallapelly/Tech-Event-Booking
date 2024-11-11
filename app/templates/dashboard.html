@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Dashboard</title>
+  <style>
+    /* Reset some basic styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header Section */
+    .header {
+      background-color: #1f5691;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Navigation Links */
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Profile Icon */
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    /* Register Event Section */
+    .register-event-section {
+      position: relative;
+      height: 50vh; /* Occupies half of the viewport height on laptops */
+      background-image: url('{{ url_for('static', filename='images/image.jpg') }}');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+  }
+
+
+
+    .register-event-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(108, 185, 230, 0.481); /* Overlay for better text readability */
+    }
+
+    .register-event-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+    }
+
+    .register-event-content h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .register-event-content a {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .register-event-content a:hover {
+      background-color: #218838;
+    }
+
+    /* Main Content Container */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Upcoming Events Section */
+    .upcoming-events {
+      margin-bottom: 40px;
+    }
+
+    .upcoming-events h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #007bff;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .event-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-card-content {
+      padding: 15px;
+    }
+
+    .event-card-content h4 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #007bff;
+    }
+
+    .event-card-content p {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .event-card-content a {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .event-card-content a:hover {
+      background-color: #0056b3;
+    }
+
+    /* Footer Section */
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .register-event-section {
+        height: 70vh; /* Adjust height for smaller screens */
+      }
+
+      .register-event-content h2 {
+        font-size: 28px;
+      }
+
+      .register-event-content a {
+        padding: 12px 25px;
+        font-size: 16px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navbar a {
+        font-size: 14px;
+      }
+
+      .profile-icon {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section with Navigation -->
+  <div class="header">
+    <div class="logo">Eventify</div>
+    <nav class="navbar">
+      <a href="{{ url_for('main_routes.profile') }}">Profile</a>
+      <a href="{{ url_for('main_routes.my_bookings') }}">My Bookings</a>
+      <a href="{{ url_for('main_routes.manage_bookings') }}">Manage Bookings</a>
+      <a href="{{ url_for('main_routes.privacy_policy') }}">Privacy Policy</a>
+      <a href="{{ url_for('main_routes.logout') }}">Log Out</a>
+      <!-- User Profile Image -->
+      <a href="/profile">
+        <img src="{{ url_for('static', filename='images/icon.png') }}" alt="User Profile" class="profile-icon" onerror="this.onerror=null; this.src='https://via.placeholder.com/40';">
+      </a>
+    </nav>
+  </div>
+
+  <!-- Register Event Section -->
+  <div class="register-event-section">
+    <div class="register-event-content">
+      <h2>Register a New Event</h2>
+      <a href="{{ url_for('main_routes.add_event') }}">Register Event</a>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="container">
+
+    <!-- Upcoming Events Section -->
+    <section class="upcoming-events">
+      <h3>Upcoming or Registered Events</h3>
+      <div class="event-grid">
+        {% for event in events %}
+        <div class="event-card">
+          <img src="{{ event.image_url or url_for('static', filename='images/event_image.jpg') }}" alt="Event Image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x180';">
+          <div class="event-card-content">
+            <h4>{{ event.name }}</h4>
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Location:</strong> {{ event.location }}</p>
+            <a href="/book_event/{{ event.id }}">Book Now</a>
+          </div>
+        </div>
+        {% else %}
+        <p style="text-align: center; color: #555;">No events registered yet.</p>
+        {% endfor %}
+      </div>
+    </section>
+    
+
+  <!-- Footer Section -->
+  <div class="footer">
+    <p>&copy; 2024 Eventify. All Rights Reserved.</p>
+  </div>
+</body>
+</html>

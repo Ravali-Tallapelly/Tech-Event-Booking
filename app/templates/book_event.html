@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Event</title>
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Styling for the container */
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+
+        /* Styling for the booking form */
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling for the back to dashboard link */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Styling for the no tickets message */
+        .no-tickets {
+            color: #ff6347;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Book Tickets for {{ event.name }}</h1>
+    <p><strong>Date:</strong> {{ event.date }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Tickets Available:</strong> {{ event.tickets }}</p>
+
+    {% if event.tickets > 0 %}
+        <form method="POST" action="{{ url_for('main_routes.book_event', event_id=event.id) }}">
+            <button type="submit">Book Ticket</button>
+        </form>
+    {% else %}
+        <p class="no-tickets">Sorry, no tickets are available for this event.</p>
+    {% endif %}
+
+    <a href="{{ url_for('main_routes.dashboard') }}" class="back-link">Back to Dashboard</a>
+</div>
+
+</body>
+</html>
